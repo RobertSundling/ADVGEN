@@ -1,0 +1,33 @@
+DEFLNG A-Z
+
+COMMON SHARED InputFile AS STRING, OutputFile AS STRING, CommandLine AS STRING
+COMMON SHARED Done, LN, Delimiters$, Errors, File$
+
+COMMON SHARED NextRoom, NextObject, NextPerson, NextText, NumVerbs, NextCom
+COMMON SHARED MaxRooms&, MaxObjects&, MaxText&, MaxCreatures&, MaxCommands&
+
+COMMON SHARED Rooms()    AS RoomType
+COMMON SHARED Objects()  AS ObjectType
+COMMON SHARED Text()     AS TextType
+COMMON SHARED Verbs()    AS VerbType
+COMMON SHARED Objects2() AS ObjectType2
+COMMON SHARED Block      AS HeaderType
+COMMON SHARED Commands() AS CommandType
+COMMON SHARED Events()   AS EventType
+COMMON SHARED Room
+COMMON SHARED Sline      AS ScreenType
+COMMON SHARED ABORT, Blank
+
+COMMON SHARED Verb1 AS STRING
+COMMON SHARED Adj1 AS STRING
+COMMON SHARED Noun1 AS STRING
+COMMON SHARED Prep AS STRING
+COMMON SHARED Adj2 AS STRING
+COMMON SHARED Noun2 AS STRING
+COMMON SHARED Word() AS STRING
+COMMON SHARED Normal, Bright, Highlight, Background, Prompt, Lines
+
+COMMON SHARED Points, Turns, TotalWeight, TotalSize
+
+COMMON SHARED Object1 AS INTEGER, Object2 AS INTEGER, OldRoom
+
