@@ -1,0 +1,57 @@
+   Verbs(1).VerbName = "CLOSE"
+        Verbs(1).Yes = "CLOSED"
+       Verbs(1).Desc = "CLOSE"
+    Verbs(1).Capable = "CLOSABLE"
+    Verbs(1).Default = 0
+ 
+   Verbs(2).VerbName = "LOCK"
+        Verbs(2).Yes = "LOCKED"
+       Verbs(2).Desc = "LOCK"
+    Verbs(2).Capable = "LOCKABLE"
+    Verbs(2).Default = 0
+
+   Verbs(3).VerbName = "TAKE"
+   Verbs(3).Synonym1 = "GET"
+       Verbs(3).Desc = "TAKE"
+  Verbs(3).UnCapable = "UNMOVABLE"
+    Verbs(3).Default = -1
+
+   Verbs(4).VerbName = "PUSH"
+   Verbs(4).Synonym1 = "TOUCH"
+   Verbs(4).Synonym2 = "PRESS"
+       Verbs(4).Desc = "PUSH"
+    Verbs(4).Capable = "PUSHABLE"
+
+   Verbs(5).VerbName = "READ"
+       Verbs(5).Desc = "READ"
+    Verbs(5).Capable = "READABLE"
+
+   Verbs(6).VerbName = "OPEN"
+         Verbs(6).No = "CLOSED"
+       Verbs(6).Desc = "OPEN"
+    Verbs(6).Capable = "CLOSABLE"
+
+   Verbs(7).VerbName = "DROP"
+   Verbs(7).Synonym1 = "LEAVE"
+  Verbs(7).UnCapable = "UNMOVABLE"
+    Verbs(7).Default = -1
+       Verbs(7).Desc = "DROP"
+
+   Verbs(8).VerbName = "UNLOCK"
+    Verbs(8).Capable = "LOCKABLE"
+       Verbs(8).Desc = "UNLOCK"
+
+   Verbs(9).VerbName = "LOOK"
+       Verbs(9).Desc = "LOOK"
+
+  Verbs(10).VerbName = "ASK"
+      Verbs(10).Desc = "ASK"
+
+  Verbs(11).VerbName = "CLIMB"
+      Verbs(11).Desc = "CLIMB"
+ 
+  Verbs(12).VerbName = "GIVE"
+      Verbs(12).Desc = "GIVE"
+
+      NumVerbs = 12
+
