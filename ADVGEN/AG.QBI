@@ -1,0 +1,156 @@
+DEFLNG A-Z
+
+TYPE HeaderType
+   Header         AS INTEGER
+   Misc           AS STRING * 116
+
+   Introduction   AS INTEGER
+   NumCommands    AS INTEGER
+   NumRooms       AS INTEGER
+   NumObjects     AS INTEGER
+   NumText        AS INTEGER
+   NumCreatures   AS INTEGER
+   NumEvents      AS INTEGER
+END TYPE
+
+TYPE RoomType
+   Header         AS INTEGER
+   Number         AS INTEGER
+   LookCommands   AS INTEGER
+
+   Adjective      AS STRING * 32
+   RoomName       AS STRING * 32
+   ShortDesc      AS INTEGER
+   LongDesc       AS INTEGER
+
+   Points         AS INTEGER  ' Number of points you get for going in here
+
+   SPECIAL        AS INTEGER  ' Number of the text for the special...
+   NewRoom        AS INTEGER  ' The new room that you go to
+   KeyObject      AS INTEGER  ' The object that you need to activate it
+   SpecialPoints  AS INTEGER  ' The points you get for activating the special
+
+   Light          AS INTEGER  ' What object number is the light for this room
+   GameEnd        AS INTEGER  ' Is the game over when we go in here?
+
+   North          AS INTEGER
+   South          AS INTEGER
+   East           AS INTEGER
+   West           AS INTEGER
+
+   Up             AS INTEGER
+   Down           AS INTEGER
+
+   Unused         AS STRING * 12
+END TYPE
+
+TYPE ObjectType
+   Header         AS INTEGER
+   Number         AS INTEGER
+   Taken          AS INTEGER
+   Reserved       AS STRING * 48
+
+   Follow         AS INTEGER
+   ShortCommands  AS INTEGER
+   Adjective      AS STRING * 24
+   ObjectName     AS STRING * 24
+   ShortDesc      AS INTEGER
+   LongDesc       AS INTEGER
+
+   Location       AS INTEGER
+
+   Weight         AS INTEGER
+   Size           AS INTEGER
+   Points         AS INTEGER
+
+   Capabilities   AS LONG           ' Bit field.  1 = Yes, 0 = No
+   Status         AS LONG           ' Bit field.  1 = Yes, 0 = No.
+
+   KeyObject      AS INTEGER
+   IsLight        AS INTEGER
+   IsOn           AS INTEGER
+END TYPE
+
+TYPE ObjectType2
+   Header         AS INTEGER
+   Number         AS INTEGER
+   Reserved       AS STRING * 16
+
+   Synonym1       AS STRING * 24
+   Synonym2       AS STRING * 24
+   Commands       AS STRING * 64    ' Actually an array of integers...
+END TYPE
+
+TYPE EventType
+   Header         AS INTEGER
+   Number         AS INTEGER
+   Unused         AS STRING * 124
+
+   Enabled        AS INTEGER
+   Commands       AS INTEGER
+END TYPE
+
+TYPE VerbType
+   Header         AS INTEGER
+   Number         AS INTEGER
+   Reserved       AS STRING * 24
+
+   VerbName       AS STRING * 10
+   Synonym1       AS STRING * 10
+   Synonym2       AS STRING * 10
+   Synonym3       AS STRING * 10
+   Synonym4       AS STRING * 10
+
+   Desc           AS STRING * 10
+   Capable        AS STRING * 10
+   UnCapable      AS STRING * 10
+
+   Yes            AS STRING * 10
+   No             AS STRING * 10
+
+   CommandNum     AS INTEGER
+   Default        AS INTEGER
+END TYPE
+
+TYPE TextType
+   Header         AS INTEGER
+   Number         AS INTEGER
+   NextRec        AS INTEGER
+   Text           AS STRING * 126
+END TYPE
+
+TYPE CommandType
+   Header         AS INTEGER
+   Number         AS INTEGER
+   NextRec        AS INTEGER
+   Commands       AS STRING * 126
+END TYPE
+
+CONST BLOCKHEADER = 18241
+CONST ROOMHEADER = 1
+CONST OBJECTHEADER = 2
+' use 3 next...
+CONST SPECIALHEADER = 4
+CONST TEXTHEADER = 5
+CONST VERBHEADER = 6
+CONST COMMANDHEADER = 7
+CONST OBJECTHEADER2 = 8
+CONST EVENTHEADER = 9
+
+CONST C.IFLOC = "A"
+CONST C.MOVE = "B"
+CONST C.DISPLAY = "C"
+CONST C.LOCK = "D"
+CONST C.UNLOCK = "E"
+CONST C.OPEN = "F"
+CONST C.CLOSE = "G"
+CONST C.DEFAULT = "H"
+CONST C.CREATURE = "I"
+CONST C.POINTS = "J"
+CONST C.STOP = "K"
+CONST C.IFLOCNOT = "L"
+CONST C.IFABOUT = "M"
+CONST C.STARTEVENT = "N"
+CONST C.KILLEVENT = "O"
+CONST C.ADDEXIT = "P"
+
