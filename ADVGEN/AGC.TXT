@@ -1,0 +1,347 @@
+                 Adventure Game Development Kit
+                       Programmer's Manual
+
+                          Version 1.00
+             Copyright (c) 1991 Robert J. Sundling,
+                      All Rights Reserved.Rooms:
+
+Room nnn                 ; Valid room numbers are from 1 to 999
+{
+     [Adjective "..."]   ; Optionally you may specify an adj.
+     Name "..."          ; You must specify a name for the room
+
+     Short Description   ; This is a "short" description of the
+     {                   ; room as displayed when you enter it
+          .              ; after you've already been in it once.
+     }                   ; A one-line description is good.
+
+     Long Description    ; This is a "long" description of the
+     {                   ; room as displayed when you enter it
+          .              ; for the first time or when you type
+          .              ; LOOK or LOOK AROUND while in the room.
+          .              ; It is usually several lines long, but
+     }                   ; may be shorter if you prefer.
+
+     [North nnnn]        ; The optional direction indicators
+     [South nnnn]        ; tell the program which rooms you enter
+     [East nnnn]         ; when you go a certain direction.  If
+     [West nnnn]         ; you omit these, the room has no exits.
+
+     [End]               ; If you specify the End parameter, when
+                         ; the player enters the room, the long
+                         ; description is displayed and then the
+                         ; game is over.
+
+     [Points nnnn]       ; You may specify the number of points a
+                         ; player receives for entering this
+                         ; room, and they may be either a
+                         ; positive or negative number.
+}Objects:
+
+Object nnnn              ; Valid object numbers are 1000 to 1998.
+{
+     [Adjective "..."]   ; You may specify a describing word.
+     Name "..."          ; You must give this object a name.
+
+     [Synonym "..."]     ; You may give up to two synoyms for
+     [Synonym "..."]     ; object, for example, you may want
+                         ; "CARPET" a synonym for "RUG"
+
+     Location nnnn       ; The location of this object
+     [Weight nnnn]       ; Weight (player can carry 99)
+     [Size nnnn]         ; Size (player can carry 99)
+[
+     Short Description   ; You may specify some short text to be
+     {                   ; displayed when this object is in the
+          ...            ; current room.  For example:
+     }                   ; "There is a broom here."
+]
+
+[
+     Long Description    ; This is the description that is 
+     {                   ; displayed when the player LOOKs at
+          ...            ; this object.  If it is omitted, they
+     }                   ; get "You can't look at the xxx."
+]
+
+     [Unmovable]         ; Default is moveable
+     [Lockable]          ; Default is not lockable
+     [Closable]          ; Default is not closable
+     [Readable]          ; Default is not readable
+     [Pushable]          ; Default is not pushable
+     [Turnable]          ; Default is not turnable
+     [Shootable]         ; Default is not shootable
+
+[
+     Take                ; You may specify lists of commands for
+     {                   ; every verb.  In this example, Take is
+          .              ; used.  In addition, you may use:
+          .              ; READ, LOCK, UNLOCK, PUSH, TURN, OPEN,
+          .              ; CLOSE, SHOOT, & DROP.  Inside of the
+          .              ; {}'s, you use a simple list of
+          .              ; commands.  If you do not specify
+          .              ; these, the default actions are
+     }                   ; performed.
+]
+
+}Creatures:
+
+Creature nnnn            ; Valid creature nums. are 2000 to 2998
+{
+     [Adjective "..."]   ; You may specify a describing word.
+     Name "..."          ; You must give this creature a name.
+          
+     [Synonym "..."]     ; You may give this creature up to two
+     [Synonym "..."]     ; synyonyms.  For example, you may
+                         ; want WOLF as a synonym for WEARWOLF.
+
+     Location nnnn       ; Room # where this creature begins
+
+[
+     Short Description   ; You may specify some text to be
+     {                   ; displayed when this creature is in
+          ...            ; your current room.  For example:
+     }                   ; "Fred Jones is here."
+]    
+
+[
+     Long Description    ; A description that is displayed
+     {                   ; when the player does LOOK creature.
+          ...            ; If you omit this, they will get
+     }                   ; "You can't look at the xxxx."
+]
+     
+     [Weapon xxxx]       ; Which weapon kills this creature?
+     [Limit]             ; If this is set, the player cannot
+                         ; leave the room until the creature
+                         ; is killed.
+[
+     Ask                 ; You may specify a command list for
+     {                   ; what happens when the player asks
+          .              ; this creature about something.
+          .              ; Use the IFABOUT command to figure
+          .              ; out what the player is asking
+     }                   ; about.
+]
+     
+[
+     Death               ; You may specify a command list for
+     {                   ; what happens when this creature is
+          .              ; killed by the player.
+          .              ; When a creature is killed, it is
+          .              ; removed from the game.
+     }
+]
+}
+     Numbers:
+
+          -4        ---            RESERVED.
+          -3        ---            RESERVED.
+          -2        CURRENT        Current Room's Inventory
+          -1        PLAYER         Player / Player's Inventory
+           0        OUT            Out of the game.
+    1 to 999        ---            Rooms
+1000 to 1998        ---            Objects
+2000 to 2998        ---            Creatures
+
+     Numbers are used in commands such as IFLOC and MOVE.  They
+allow you reference something.
+
+IF COMMANDS:
+
+     All IF commands accept an optional ELSE statement.  The
+coding is as follows:
+
+if
+{
+     .
+}
+else
+{
+     .
+}
+
+Commands
+
+IFLOC -- IF LOCation
+
+Syntax:
+
+     ifloc nnnn = xxxx
+     {    
+          .
+          .
+          .
+     }
+
+Parameters:
+
+     nnnn = PLAYER, Objects, Creatures
+     xxxx = PLAYER, Objects, Creatures, Rooms
+
+     If nnnn = PLAYER or Creatures, than xxxx must be a room.
+
+Comments:
+
+     IFLOC allows you to conditionally execute statements.  Note
+that one disadvantage of the IFLOC statement is that there are no
+methods provided for an ELSE condition.Commands
+
+MOVE -- Move objects
+
+Syntax:
+
+     move nnnn to xxxx
+
+Parameters:
+
+     nnnn = CURRENT, PLAYER, OUT, Rooms, Objects, Creatures
+     xxxx = CURRENT, PLAYER, OUT, Rooms, Objects, Creatures
+
+Comments:
+
+     The MOVE command ONLY can move objects.  If you were to do
+something like:
+
+     move PLAYER to 5
+
+     It would NOT move the player to room 5, rather it would move
+the objects that the player had in his/her inventory to that
+room.  Same applies for creatures.
+
+
+DISPLAY -- Display text to the player
+
+Syntax:
+
+     display
+     {
+          .
+          .
+          .
+     }
+
+Comments:
+
+     The text between the { and } is displayed.  No special
+formatting takes place, however, a line consisting of just a
+period (".") is replaced by a blank line.  Blank lines in a
+display are ignored, thus the need for the period translation. 
+You may not place comments inside of a display.  If you do, they
+will be sent as part of the display.Commands
+
+LOCK, UNLOCK, OPEN, CLOSE -- Manipulative Commands
+
+Syntax:
+
+     lock nnnn
+     unlock nnnn
+     open nnnn
+     close nnnn
+
+Parameters:
+
+     nnnn = Objects
+
+Comments:
+
+     These commands allow you to lock, unlock, open, or close
+objects.  For example, if you were to fire a gun at a safe, you
+could OPEN it.
+
+
+DEFAULT -- Execute a default action
+
+Syntax:
+
+     default
+
+Comments:
+
+     This command is used when you want to do something special
+on a certain verb, yet you still want the normal action of that
+verb to take place.  For example, suppose that you had a
+balancing scale with equal weights on both ends.  When the player
+takes one of the weights, the scale will tip and a secret panel
+will be revealed.  However, you need to remember that the player
+still took the weight, and thus it needs to be placed in their
+inventory.  This is where the DEFAULT command comes in: It allows
+you to do something (like reveal the secret panel) and then
+execute the default action for that verb...in this case, taking
+the weights.Commands
+
+CREATURE, CREATURE_MOVE -- Move a creature or the player.
+
+Syntax:
+     
+     creature nnnn to xxxx
+
+     or
+
+     creature_move nnnn to xxxx
+
+Parameters:
+
+     nnnn = PLAYER, Creatures
+     xxxx = Rooms
+
+Comments:
+
+     The CREATURE_MOVE command lets you change the location of a
+creature or of the player.  The CREATURE command is the same as
+the CREATURE_MOVE command; it is just an abbreviated form of it. 
+The player or the creature specified by nnnn is moved into room
+xxxx.Commands
+
+IFABOUT -- What was the player asking a question about?
+
+Syntax:
+
+     ifabout nnnn
+     {
+          .
+          .
+          .
+     }
+
+     ifabout "xxxx"[, "xxxx"...]
+     {
+          .
+          .
+          .
+     }
+
+Parameters:
+
+     "xxxx" = A literal string, ie: ifabout "LIFE"
+     nnnn   = An object, creature, or room number.
+
+Comments:
+
+     This command lets you make the characters more interactive:
+You can ask them questions about things.  With the string
+variation of this command, you may specify up to 255 strings,
+each being a maximum of 32 characters long.  Case is
+insignificant.Commands
+
+IFAT -- What is the current object being used at or on?
+
+Syntax:
+
+     ifat nnnn
+     {
+          .
+          .
+          .
+     }
+
+Parameters:
+
+     nnnn = Creature or object number
+
+Comments:
+
+     This command allows you to find out, for example, what a
+specific object is being thrown at, and allows you to take
+actions accordingly.  (This IF statement works with all verbs
+that take two arguments, for example, SHOOT, THROW, etc.)
