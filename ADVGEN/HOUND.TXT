@@ -1,0 +1,726 @@
+;
+; The Hound of the Baskervilles
+; Prototype example of the first room & its objects.
+;
+
+Intro
+{
+   The Hound of the Baskervilles
+   Bob Sundling
+   Welcome.  This is not the actual game, rather, it is a pretend game
+   which I wrote as I was working on this prograrm.  It can be quite
+   interesting at times, you may want to take a look at it.
+}
+
+Room 1
+{
+   Adjective "Mr. Sherlock Holmes'"
+   Name "Kitchen"
+
+   Short Description
+   {
+      You are in the kitchen of Mr. Sherlock Holmes.
+   }
+
+   Look
+   {
+      IfLoc 1004 = 1
+      {
+         IfLoc 1002 = 1
+         {
+            Display
+            {
+               This is a typical 19th Century English kitchen.  There is a
+               breakfast table in the center, overlooking a beautiful brick
+               fireplace against the west wall.  The fire is not lit.
+            }
+            Stop
+         }
+         Display
+         {
+            This is a typical 19th Century English kitchen.  There is a
+            breakfast table in the center, overlooking a beautiful brick
+            fireplace against the west wall.  The fire is lit.
+         }
+         Stop
+      }
+      IfLoc 1002 = 1
+      {
+         Display
+         {
+            This is a typical 19th Century English kitchen.  There used
+            to be a breakfast table in the center, but someone pushed
+            it into a trap door.  <cough cough>  There's a fireplace
+            against the west wall.  The fire is not lit.
+         }
+         Stop
+      }
+      Display
+      {
+         This is a typical 19th Century English kitchen.  There used
+         to be a breakfast table in the center, but someone pushed
+         it into a trap door.  <cough cough>  There's a fireplace
+         against the wall.  The fire is lit.
+      }
+   }
+
+;  Long Description
+;  {
+;     This is a typical 19th Century English kitchen.  There is beautiful
+;     brick fireplace on the west wall.
+;  }
+
+   East 2
+   North 3
+}
+
+Room 2
+{
+   Adjective "Key"
+   Name "Room"
+
+   Short Description
+   {
+      You are in the room where the keys are normally kept.
+   }
+
+   Long Description
+   {
+      There is a pegboard on the wall to hang keys.
+   }
+
+   West 1
+}
+
+Room 3
+{
+   Adjective "Front"
+   Name "Lawn"
+
+   Short Description
+   {
+      You are in Sherlock Holmes's front lawn.
+   }
+
+   Long Description
+   {
+      This lawn is quite beautiful, and there is a large oak tree
+      planted right in the middle.
+   }
+
+   South 1
+}
+
+Object 1000
+{
+   Name "Stick"
+   Adjective "Walking"
+   Synonym "Band"          ; This synonym is so that they can do "READ BAND"
+
+   Location 1
+   Weight 5
+   Size 5
+
+   Short Description
+   {
+      There is a walking stick here.
+   }
+
+   Long Description
+   {
+      This is a fine, thick piece of wood, bulbous-headed, of the
+      sort which is known as a "Penang lawyer."  Just under the head
+      is a broad silver band, nearly an inch across.  There is writing
+      on the band.
+      .
+      It is just such a stick as the old-fasioned family practitioner
+      would carry -- dignified, solid, and reassuring.
+   }
+
+   Read           ; Command list for READ verb
+   {
+      Display
+      {
+         The walking stick has the following engraved upon a broad silver
+         band:
+         .
+         To James Mortimer, M.R.C.S., from his friends of the C.C.H. 1884
+      }
+      Points 5
+   }
+
+   Take
+   {
+      Display
+      {
+         You pick up the walking stick carefully.
+      }
+      Points 3       ; Give the player two points for getting the stick
+      Default        ; Then perform the default "take" action
+   }
+
+   Drop
+   {
+      IfLocNot -1 = 1
+      {
+         Display
+         {
+            You really should put the walking stick back in the kitchen.
+         }
+         Stop
+      }
+
+      Display
+      {
+         You set down the walking stick every so carefully.
+      }
+      Default
+   }
+}
+
+Object 1001
+{
+   Name "Fireplace"
+
+   Location 1
+
+   Long
+   {
+      This is an open brick fireplace.  There is no wood in it, however,
+      and from the looks of it it has been a long time since Mr. Holmes
+      has bothered to bring some in.
+   }
+
+   Take
+   {
+      Display
+      {
+         The fireplace is sorta built into the wall...  You'll have a
+         rather hard time trying to take it.  Give it up.
+      }
+   }
+}
+
+Object 1002
+{
+   Name "Fire"
+
+   Location 1
+
+   Look
+   {
+      Display
+      {
+         There is no fire in the fireplace.  Are you confused, or is it
+         just me?  Sheesh, guy.
+         .
+         Here, I'll help you out.  I'll MAKE a fire in the fireplace!
+      }
+      Move 1002 to 0
+      Move 1012 to 1
+   }
+
+   Take
+   {
+      Display
+      {
+         Taking a nonexistant fire.  What a concept!
+      }
+   }
+}
+
+Object 1012
+{
+   Name "Fire"
+
+   Location 0
+
+   Long
+   {
+      The fire warms the room.
+   }
+
+   Push
+   {
+      Display
+      {
+         Ouch!  Don't touch the fire.
+      }
+   }
+
+   Take
+   {
+      Display
+      {
+         You want to TAKE the fire?  Get real.
+      }
+   }
+}
+
+Object 1007
+{
+   Adjective "Magic"
+   Name "Key"
+
+   Location 2
+   Weight 1
+   Size 1
+
+   Short
+   {
+      There is a magic key here.
+   }
+
+   Long
+   {
+      Just where DID this key come from, anyway?
+   }
+
+   Take
+   {
+      Display
+      {
+         The magic key gives off sparkles as you pick it up.
+      }
+      Points 5
+      Default
+   }
+}
+
+Object 1008
+{
+   Adjective "Skeleton"
+   Name "Key"
+
+   Weight 1
+   Size 1
+
+   Location 2
+
+   Short
+   {
+      There is a skeleton key here.
+   }
+
+   Long
+   {
+      This is your standard skeleton key.
+   }
+
+   Take
+   {
+      Display
+      {
+         You take the skeleton key.
+      }
+      Points 1
+      Default
+   }
+}
+
+Object 1009
+{
+   Adjective "Old"
+   Name "Key"
+
+   Weight 1
+   Size 1
+
+   Location 2
+
+   Short
+   {
+      There is a very old key here.
+   }
+
+   Long
+   {
+      This is an old key.
+   }
+}
+
+Object 1010
+{
+   Name "Pegboard"
+
+   Location 2
+
+   Long
+   {
+      This pegboard can hold up to three keys.
+   }
+   Unmovable
+}
+
+Object 1011
+{
+   Name "Newspaper"
+   Synonym "Paper"
+
+   Weight 5
+   Size 5
+
+   Location 1
+
+   Long
+   {
+      This is a very short newspaper...
+   }
+
+   Short
+   {
+      There is a newspaper here.
+   }
+
+   Read
+   {
+      Display
+      {
+         The front-page story is "The Man Behind The Hound."  You begin
+         reading, but your eyes wander to an article below entitled
+         "1001 Ways To Kill a Cow."
+         .
+         You set down the paper in disgust.
+      }
+      Move 1011 to -2
+      Points 1
+   }
+}
+
+Object 1006
+{
+   Adjective "Beer"
+   Name "Stein"
+
+   Weight 8
+   Size 8
+
+   Location 1
+
+   Short
+   {
+      There is a beer stein here.
+   }
+
+   Long
+   {
+      This beer stein is elegantly designed and made from solid gold.
+      It has a magical element to it, almost as if it is the property
+      of a powerful wizard.  It glows slightly when you touch it,
+      and has a strange enscription written upon it in some foreign
+      language.
+      .
+      If this stein is indeed owned by a wizard, I think that he would
+      very much like it to be returned to him immediately.
+   }
+
+   Read
+   {
+      Display
+      {
+         You cannot read the language in which the enscription on the
+         stein is written.
+      }
+      Points 1
+   }
+}
+
+Object 1003
+{
+   Name "Wood"
+
+   Location 1
+
+   Long
+   {
+      There is no wood in the fireplace.
+   }
+   Unmovable
+}
+
+Object 1004
+{
+   Name "Table"
+
+   Location 1
+
+   Long
+   {
+      It's just an ordinary table, a bit squarish though.
+   }
+   Unmovable
+
+   Push
+   {
+      Iflocnot 1005 = 1
+      {
+         Display
+         {
+            You push the table towards a wall, and a trap door opens up
+            in the floor.  Too bad you took the rug, otherwise it would
+            have been covering the trap door and it couldn't have opened.
+         }
+         Move 1004 to 0
+         Stop
+      }
+      Display
+      {
+         You push the table, but nothing happens.
+      }
+   }
+}
+
+Object 1005
+{
+   Name "Rug"
+   Adjective "Hearth"
+   Synonym "Carpet"
+
+   Weight 30
+   Size 70
+
+   Location 1
+
+   Long
+   {
+      The hearth rug looks cold, damp, and neglected.  You cannot help
+      feeling almost sorry for it, after all, it is very old and worn,
+      yet friendly and helpful.
+      .
+      It would make an excellent travelling companion, and could be
+      useful if you need to cover up a stain on a floor.
+   }
+
+   Short
+   {
+      There is a cold, damp hearth rug here.
+   }
+
+   ; You CAN take the rug.  Since it's just a standard object,
+   ; we will not write a definition for it.  When you type
+   ; GET RUG, it will say:
+   ;
+   ; Taken.
+   ;
+   ; Because that is the default and we defined nothing.
+
+}
+
+Object 1015
+{
+   Adjective "Oak"
+   Name "Tree"
+
+   Location 3
+
+   Look
+   {
+      Ifloc 1013 = 3
+      {
+         Display
+         {
+            This oak tree is tall and mighty.  There are three leaves
+            on the ground below it.
+         }
+         Stop
+      }
+
+      Display
+      {
+         This oak tree is tall and mighty.
+      }
+   }
+   Unmovable
+}
+
+Object 1013
+{
+   Adjective "Three"
+   Name "Leaves"
+
+   Location 3
+
+   Short Commands
+   {
+      Iflocnot 1013 = 3
+      {
+         Display
+         {
+            There are three leaves here.
+         }
+      }
+   }
+
+   Long
+   {
+      These leaves are from an oak tree.
+   }
+}
+
+Object 1014
+{
+   Adjective "Giant"
+   Name "Book"
+
+   Location 3
+
+   Size 50
+   Weight 30
+
+   Short
+   {
+      There is a giant book here.
+   }
+
+   Long
+   {
+      The book is titled "The Wisdom of Ronald Reagan."
+   }
+
+   Read
+   {
+      Display
+      {
+         All of the pages are blank.
+      }
+   }
+}
+
+Object 1016
+{
+   Adjective "Sherlock"
+   Name "Holmes"
+   Synonym "Sherlock"
+
+   Location 1
+
+   Short
+   {
+      Sherlock Holmes is here.
+   }
+
+   Follow
+
+   Look
+   {
+      Ifloc -1 = 1
+      {
+         Display
+         {
+            Holmes is looking around the kitchen merrily.
+         }
+         Stop
+      }
+   
+      Ifloc -1 = 2
+      {
+         Display
+         {
+            Holmes is trying to remember when it was that he got
+            a key room.
+         }
+         Stop
+      }
+   
+      Ifloc -1 = 3
+      {
+         Display
+         {
+            Holmes is sitting underneath the tree.
+         }
+         Stop
+      }
+   }
+
+   Ask
+   {
+      Ifabout "hound"
+      {
+         Display
+         {
+            "Well," says Sherlock, "I really don't know what to make of the
+            hound at this point in time.  It certainly is against my
+            fundamental beliefs to believe that it exists, however, we
+            must always keep an open mind."
+         }
+         Stop
+      }
+ 
+      Ifabout "henry"
+      {
+         Display
+         {
+            "Sir Henry Baskerville is a nice fellow," says Sherlock.
+         }
+         Stop
+      }
+ 
+      Ifabout "mortimer"
+      {
+         Display
+         {
+            "Dr. Mortimer can indeed be trusted," says Sherlock.
+         }
+         Stop
+      }
+ 
+      Ifabout "stick"
+      {
+         Display
+         {
+            "I think that C.C.H. must stand for Charing Cross Hospital.
+            It doesn't seem likely that a presentation of such a fine
+            walking stick would come from a hunt," says Holmes.
+         }
+         Stop
+      }
+
+      Display
+      {
+         You can't ask Sherlock Holmes about that.
+      }
+   }
+
+   Take
+   {
+      Display
+      {
+         "Watson, what are you doing?" yells Holmes.
+      }
+   }
+
+   Give
+   {
+      Ifabout "stick"
+      {
+         Iflocnot -1 = 1
+         {
+            Display
+            {
+               "I don't want the walking stick," says Holmes.  "Why don't
+               you put it back in the kitchen so we know where it is?  Here,
+               I'll do it for you."
+               .
+               Holmes walks away and returns a few moments later, sans the
+               stick.
+            }
+            Move 1000 to 1
+         }
+         Ifloc -1 = 1
+         {
+            Display
+            {
+               "Thank you," says Holmes as he sets down the stick.
+            }
+            Move 1000 to 1
+         }
+         Stop
+      }
+      Display   
+      {
+         Holmes doesn't want that.
+      }
+   }
+
+}
+
