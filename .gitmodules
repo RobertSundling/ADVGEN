@@ -1,0 +1,3 @@
+[submodule "ADVBAS"]
+	path = ADVBAS
+	url = https://github.com/RobertSundling/ADVBAS.git
