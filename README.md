@@ -463,10 +463,11 @@ You can compile the source code to create the executables, or simply run from wi
     QB /L ADVBAS
     ```
     If you have not set up your QuickBASIC library path, you can either specify the full path to `ADVBAS.QLB`,
-    or copy it to the `ADVGEN` directory, or run QB and choose `Set Paths...` from the `Options` menu to add the library path to the `ADVGEN` directory, then restart QuickBASIC.
+    or copy it to the `ADVGEN` directory, or run QB and from the `Options` menu choose `Set Paths...` to add the library path to the `ADVGEN` directory, then restart QuickBASIC.
 3. Open one of the two primary source code files:
    - `AGC.BAS` - for the Adventure Game Compiler
    - `AGI.BAS` - for the Adventure Game Interpreter (the `AGI.MAK` project will be used automatically to load the related files)
 
-   Note that in order for QuickBASIC to find the `.BI` include files, you need to be in the correct directory where the source code is located, or you need to set your include directory to the `ADVGEN` directory. If you forgot to change directories initially, you can open a DOS shell by choosing `DOS Shell` from the `File` menu, and then change directories to `ADVGEN` from there.
-4. Press `F5` to run the program, or choose `Make EXE File...` from the `Run` menu to compile it.
+   Note that in order for QuickBASIC to find the `.BI` include files, you need to be in the correct directory where the source code is located, or you need to set your include directory to the `ADVGEN` directory. If you forgot to change directories initially, you can open a DOS shell by opening the `File` menu and choosing `DOS Shell`, and then change directories to `ADVGEN` from there.
+4. If you are going to run the program, open the `Run` menu then choose `Modify COMMAND$` and enter appropriate command line arguments; for both of these programs with the example adventure game, the correct command line is `HOUND`.
+5. Press `F5` to run the program, or choose `Make EXE File...` from the `Run` menu to compile it.
